@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-user-details',
@@ -7,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailsComponent implements OnInit {
 
+  @Input() userFirstName: string = '';
+  @Input() userLastName: string = '';
+
+  private _userAge: number = 18;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  get userAge(): number | string {
+    return this._userAge
+  }
+
+  @Input()
+  set userAge(value:number | string){
+     this._userAge = +value;
+  }
+
+  get userFullName(): string{
+    return `${this.userFirstName} ${this.userLastName}`;
+  }
+
+  @Input()
+  set userFullName(value: string){
+    this.userFirstName = value.split(' ')[0];
+    this.userLastName = value.split(' ')[1];
+  }
 }
